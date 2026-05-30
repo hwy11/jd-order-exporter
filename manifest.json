@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "京东订单导出助手",
+  "version": "0.1.0",
+  "description": "本地导出京东订单，支持 CSV、JSON 和发票 ZIP。",
+  "permissions": ["activeTab", "downloads", "offscreen", "storage"],
+  "host_permissions": [
+    "https://*.jd.com/*",
+    "https://*.360buy.com/*",
+    "https://*.jdcloud-oss.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "京东订单导出",
+    "default_popup": "src/popup/popup.html"
+  },
+  "content_scripts": []
+}

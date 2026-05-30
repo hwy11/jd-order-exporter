@@ -1,0 +1,10 @@
+{
+  "name": "jd-order-exporter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local Chrome extension for exporting JD orders.",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>京东订单导出</title>
+    <link rel="stylesheet" href="./popup.css">
+  </head>
+  <body>
+    <main class="panel">
+      <header>
+        <p class="eyebrow">JD Order Exporter</p>
+        <h1>京东订单导出</h1>
+      </header>
+
+      <section class="card">
+        <label class="label" for="range-mode">时间范围</label>
+        <select id="range-mode">
+          <option value="all">全部订单</option>
+          <option value="recentYear">最近一年</option>
+          <option value="custom">自定义</option>
+        </select>
+        <div class="date-grid" id="custom-range">
+          <label>开始 <input id="start-date" type="date"></label>
+          <label>结束 <input id="end-date" type="date"></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-title">导出字段</div>
+        <div id="fields" class="fields"></div>
+      </section>
+
+      <section class="status-card">
+        <div><strong id="status">空闲</strong></div>
+        <div>当前分段：<span id="segment">-</span></div>
+        <div>已扫描 <span id="pages">0</span> 页，已抓取 <span id="orders">0</span> 单</div>
+        <div>剩余分段：<span id="segments-remaining">0</span></div>
+        <div>发票：<span id="invoice-status">-</span></div>
+        <p id="error" class="error"></p>
+      </section>
+
+      <section class="card">
+        <label class="invoice-option">
+          <input id="include-xml" type="checkbox">
+          同时打包 XML（默认只打包 PDF）
+        </label>
+      </section>
+
+      <section class="actions">
+        <button id="start" class="primary">开始扫描</button>
+        <button id="stop">停止</button>
+        <button data-export="excelCsv">Excel 兼容 CSV</button>
+        <button data-export="csv">CSV</button>
+        <button data-export="json">JSON</button>
+        <button id="download-invoices">打包发票 ZIP</button>
+      </section>
+    </main>
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>

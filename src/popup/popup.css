@@ -1,0 +1,144 @@
+:root {
+  color-scheme: light;
+  --ink: #28160f;
+  --muted: #775d52;
+  --paper: #fff8ef;
+  --card: #fffdf9;
+  --brand: #c51f1a;
+  --brand-dark: #8f1512;
+  --line: #efd9c6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 360px;
+  margin: 0;
+  color: var(--ink);
+  font-family: "Songti SC", "Noto Serif CJK SC", serif;
+  background:
+    radial-gradient(circle at 12% 0%, #ffe2c2 0, transparent 34%),
+    linear-gradient(145deg, #fff8ef, #ffe9d6);
+}
+
+.panel {
+  padding: 16px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--brand);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 14px;
+  font-size: 24px;
+}
+
+.card,
+.status-card {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 253, 249, 0.88);
+  box-shadow: 0 10px 28px rgba(100, 46, 18, 0.08);
+}
+
+.label,
+.section-title {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+select,
+input {
+  width: 100%;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  color: var(--ink);
+}
+
+.date-grid {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.date-grid.visible {
+  display: grid;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.fields label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.fields input {
+  width: auto;
+}
+
+.invoice-option {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.invoice-option input {
+  width: auto;
+}
+
+.status-card {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.error {
+  margin: 4px 0 0;
+  color: var(--brand-dark);
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+button {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button.primary {
+  grid-column: 1 / -1;
+  border-color: var(--brand);
+  background: linear-gradient(135deg, var(--brand), #ed6a2f);
+  color: white;
+}
