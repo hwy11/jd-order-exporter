@@ -5,6 +5,7 @@ import { buildSegmentQueue } from './shared/segments.js';
 import { filterExportableOrders } from './shared/order-filter.js';
 import { detectBlockingStateFromHtml, parseOrdersFromHtml } from './content/order-parser.js';
 import { filterInvoiceDownloads, invoiceFilename, parseInvoiceCenterLinks, parseInvoiceDownloads } from './shared/invoices.js';
+import { renderConsumptionReport } from './shared/report-template.js';
 import { createZip } from './shared/zip.js';
 
 const PAGE_DELAY_MS = 250;
@@ -44,6 +45,7 @@ async function handleMessage(message) {
   if (message?.type === 'JD_EXPORTER_START') return startScan(message.options || {});
   if (message?.type === 'JD_EXPORTER_STOP') return stopScan();
   if (message?.type === 'JD_EXPORTER_EXPORT') return exportOrders(message.format || 'excelCsv');
+  if (message?.type === 'JD_EXPORTER_REPORT') return exportConsumptionReport();
   if (message?.type === 'JD_EXPORTER_DOWNLOAD_INVOICES') return downloadInvoices(message.options || {});
   return { ok: false, error: '未知消息类型' };
 }
@@ -95,6 +97,20 @@ async function exportOrders(format) {
   const extension = getExportExtension(format);
   const filename = `jd-orders-${new Date().toISOString().slice(0, 10)}.${extension}`;
   const url = `data:${getExportMime(format)},${encodeURIComponent(content)}`;
+  await chrome.downloads.download({ url, filename, saveAs: true });
+  return { ok: true, state: snapshot() };
+}
+
+async function exportConsumptionReport() {
+  if (state.orders.length === 0) {
+    state.lastError = '请先扫描订单，再生成消费报告。';
+    await persistState();
+    return { ok: false, error: state.lastError, state: snapshot() };
+  }
+
+  const html = renderConsumptionReport(state.orders);
+  const filename = `jd-consumption-report-${new Date().toISOString().slice(0, 10)}.html`;
+  const url = `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
   await chrome.downloads.download({ url, filename, saveAs: true });
   return { ok: true, state: snapshot() };
 }

@@ -48,6 +48,18 @@ function bindEvents() {
     });
   });
 
+  document.querySelector('#generate-report').addEventListener('click', async () => {
+    const latestState = await sendMessage({ type: 'JD_EXPORTER_GET_STATE' });
+    renderState(latestState);
+    if ((latestState.ordersCount || 0) === 0) {
+      errorEl.textContent = '请先扫描订单，再生成消费报告。';
+      return;
+    }
+
+    const response = await sendMessage({ type: 'JD_EXPORTER_REPORT' });
+    renderState(response.state);
+  });
+
   document.querySelector('#download-invoices').addEventListener('click', async () => {
     const latestState = await sendMessage({ type: 'JD_EXPORTER_GET_STATE' });
     renderState(latestState);

@@ -142,3 +142,7 @@ button.primary {
   background: linear-gradient(135deg, var(--brand), #ed6a2f);
   color: white;
 }
+
+button.wide {
+  grid-column: 1 / -1;
+}
